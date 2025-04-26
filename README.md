@@ -39,7 +39,8 @@ This project fetches real product data from the Fake Store API and allows managi
 - Mock Add/Edit/Delete product buttons (not persisted)
 
 ### Upcoming Features
--DarkMode/ LightMode
+- DarkMode/ LightMode
+
 ---
 
 ## 📡 API Endpoints Used
