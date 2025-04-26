@@ -1,8 +1,11 @@
-import { type PageProps } from "next";
 import fetchProductById from "@/lib/fetchProductDetails";
 import Image from "next/image";
 
-export default async function ProductDetail({ params }: PageProps<{ id: string }>) {
+export default async function ProductDetail({
+  params,
+}: {
+  params: { id: string };
+}) {
   const product = await fetchProductById(params.id);
 
   return (
@@ -29,6 +32,7 @@ export default async function ProductDetail({ params }: PageProps<{ id: string }
           <p className="text-gray-700 dark:text-gray-300 mb-4">
             {product.description}
           </p>
+
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mt-4">
             <button className="bg-green-500 text-white p-2 rounded hover:bg-green-600">
               Add Product
