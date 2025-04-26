@@ -114,7 +114,28 @@ const ProductsPage = () => {
 
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">Products</h2>
+        <div className="flex justify-between items-center px-5 bg-neutral-100 dark:bg-neutral-900 p-2 rounded shadow mb-5">
+        <h2 className="text-xl font-bold">Products</h2>
+      <div className="flex gap-4 my-2">
+        <div className="p-4 bg-white dark:bg-neutral-800 rounded shadow text-center">
+          <p className="text-sm text-gray-500">Total Products</p>
+          <p className="text-xl font-bold">{products.length}</p>
+        </div>
+        <div className="p-4 bg-white dark:bg-neutral-800 rounded shadow text-center">
+          <p className="text-sm text-gray-500">Average Price</p>
+          <p className="text-xl font-bold">
+            $
+            {products.length > 0
+              ? (
+                  products.reduce((sum, p) => sum + p.price, 0) /
+                  products.length
+                ).toFixed(2)
+              : "0.00"}
+          </p>
+        </div>
+      </div>
+        </div>
+      
 
       <div className="flex flex-col md:flex-row gap-4 mb-5 bg-white dark:bg-neutral-800 p-4 rounded shadow">
         {/* Search Input */}
@@ -128,7 +149,7 @@ const ProductsPage = () => {
 
         {/* Category Filter */}
         <select
-          className="p-2 rounded border dark:bg-gray-700 mb-4 md:mb-0"
+          className="p-2 rounded border dark:bg-neutral-700 mb-4 md:mb-0"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >
@@ -158,7 +179,7 @@ const ProductsPage = () => {
 
         {/* Rating Filter */}
         <select
-          className="p-2 rounded border w-full md:w-1/2 dark:bg-gray-700"
+          className="p-2 rounded border w-full md:w-1/2 dark:bg-neutral-700"
           value={rating}
           onChange={(e) => setRating(Number(e.target.value))}
         >
