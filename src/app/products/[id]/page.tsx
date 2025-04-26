@@ -1,11 +1,13 @@
 import fetchProductById from "@/lib/fetchProductDetails";
 import Image from "next/image";
 
-export default async function ProductDetail({
-  params,
-}: {
-  params: { id: string };
-}) {
+interface ProductDetailProps {
+  params: {
+    id: string;
+  };
+}
+
+export default async function ProductDetail({ params }: ProductDetailProps) {
   const product = await fetchProductById(params.id);
 
   return (
@@ -22,7 +24,6 @@ export default async function ProductDetail({
 
         {/* Product Details Section */}
         <div>
-          {/* Product Details */}
           <h1 className="text-2xl font-bold mb-2">{product.title}</h1>
           <p className="text-gray-600 dark:text-gray-300 mb-2">
             Category: {product.category}
