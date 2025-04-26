@@ -8,14 +8,16 @@ import { Product } from "@/types/product";
 import { useEffect, useState } from "react";
 
 const ProductsPage = () => {
+  //category filter
+  const [category, setCategory] = useState("All");
   // Fetch products from the API
   const {
-    data: products,
+    data: products = [],
     isLoading,
     isError,
   } = useQuery<Product[]>({
-    queryKey: ["products"],
-    queryFn: fetchProducts,
+    queryKey: ["products", category],
+    queryFn: () => fetchProducts(category),
   });
 
   // Fetch categories from the API
@@ -33,9 +35,6 @@ const ProductsPage = () => {
 
   // Search input state
   const [searchTerm, setSearchTerm] = useState("");
-
-  //category filter
-  const [category, setCategory] = useState("All");
 
   // Price range filter
   const [price, setPrice] = useState([0, 1000]);
@@ -56,9 +55,9 @@ const ProductsPage = () => {
       }
 
       // Filter by category
-      if (category !== "All") {
-        result = result.filter((p) => p.category === category);
-      }
+      //   if (category !== "All") {
+      //     result = result.filter((p) => p.category === category);
+      //   }
 
       // Sort by price
       result = result.filter((p) => p.price >= price[0] && p.price <= price[1]);
@@ -67,9 +66,11 @@ const ProductsPage = () => {
       result = result.filter((p) => p.rating.rate >= rating);
 
       // Set filtered products
-      setFilteredProducts(result);
+      if (JSON.stringify(result) !== JSON.stringify(filteredProducts)) {
+        setFilteredProducts(result);
+      }
     }
-  }, [products, searchTerm, category, price, rating]);
+  }, [products, searchTerm, price, rating, filteredProducts]);
 
   // Handle loading and error states
   if (isLoading) {
