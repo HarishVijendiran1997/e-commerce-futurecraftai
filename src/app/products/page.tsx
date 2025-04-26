@@ -101,7 +101,7 @@ const ProductsPage = () => {
   };
 
   // Handle loading and error states
-  if (isLoading) {
+  if (isLoading|| catLoading) {
     return <div className="text-2xl flex justify-center">Loading...</div>;
   }
   if (isError || catError) {

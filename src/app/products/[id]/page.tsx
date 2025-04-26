@@ -1,4 +1,5 @@
 import fetchProductById from "@/lib/fetchProductDetails";
+import Image from "next/image";
 
 export default async function ProductDetail({
   params,
@@ -10,11 +11,12 @@ export default async function ProductDetail({
   return (
     <div className="p-6 max-w-4xl mx-auto bg-white dark:bg-neutral-800 rounded shadow">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
         {/* Product Image */}
-        <img
+        <Image
           src={product.image}
           alt={product.title}
+          width={500}
+          height={500}
           className="w-full h-64 object-contain md:h-auto md:w-full"
         />
 
@@ -37,19 +39,13 @@ export default async function ProductDetail({
 
           {/* Action Buttons */}
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mt-4">
-            <button
-              className="bg-green-500 text-white p-2 rounded hover:bg-green-600"
-            >
+            <button className="bg-green-500 text-white p-2 rounded hover:bg-green-600">
               Add Product
             </button>
-            <button
-              className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-            >
+            <button className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
               Edit Product
             </button>
-            <button
-              className="bg-red-500 text-white p-2 rounded hover:bg-red-600"
-            >
+            <button className="bg-red-500 text-white p-2 rounded hover:bg-red-600">
               Delete Product
             </button>
           </div>
