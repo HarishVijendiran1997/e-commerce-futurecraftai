@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛒 E-commerce Admin Dashboard
 
-## Getting Started
+A fully responsive e-commerce admin dashboard built with **Next.js 15**, **TypeScript**, **Tailwind CSS**, and **TanStack Query**.  
+This project fetches real product data from the Fake Store API and allows managing products with filtering, and pagination
 
-First, run the development server:
+---
+
+## 🚀 Tech Stack
+
+- [Next.js 15 (App Router)](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Tanstack Query](https://tanstack.com/query/latest)
+- [Fake Store API](https://fakestoreapi.com/)
+
+---
+
+## 📦 Features
+
+### Dashboard Layout
+- Sidebar navigation
+- Header with user profile and logout button
+- Main content area (responsive)
+
+### Products Management
+- Fetch and display products in a grid layout
+- Show product image, title, price, category, rating, and stock status (simulated)
+
+### Filtering System
+- Price range slider
+- Category filter (dropdown)
+- Rating filter (select rating)
+- Search by product name
+
+### Additional Features
+- Product detail view when clicking a product
+- Pagination (8 products per page)
+- Basic analytics/statistics (total products, average price)
+- Mock Add/Edit/Delete product buttons (not persisted)
+
+### Upcoming Features
+-DarkMode/ LightMode
+---
+
+## 📡 API Endpoints Used
+
+- Product list: `https://fakestoreapi.com/products`
+- Single product: `https://fakestoreapi.com/products/{id}`
+- Categories: `https://fakestoreapi.com/products/categories`
+- Filter by category: `https://fakestoreapi.com/products/category/{category_name}`
+
+---
+
+## 🛠 Setup Instructions
+
+1. **Clone the repository**
 
 ```bash
+git clone https://github.com/HarishVijendiran1997/e-commerce-futurecraftai
+cd e-commerce-futurecraftai
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Visit http://localhost:3000 in your browser
