@@ -1,11 +1,11 @@
 import fetchProductById from "@/lib/fetchProductDetails";
 import Image from "next/image";
 
-export default async function ProductDetail({
-  params,
-}: {
+type ProductDetailProps = {
   params: { id: string };
-}) {
+};
+
+export default async function ProductDetail({ params }: ProductDetailProps) {
   const product = await fetchProductById(params.id);
 
   return (
