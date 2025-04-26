@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchProducts } from "@/lib/fetchProducts";
+import { fetchCategories } from "@/lib/fetchCategories";
 import ProductCard from "@/components/ui/ProductCard";
 import { Product } from "@/types/product";
 import { useEffect, useState } from "react";
@@ -15,6 +16,16 @@ const ProductsPage = () => {
   } = useQuery<Product[]>({
     queryKey: ["products"],
     queryFn: fetchProducts,
+  });
+
+  // Fetch categories from the API
+  const {
+    data: categories = [],
+    isLoading: catLoading,
+    error: catError,
+  } = useQuery<string[]>({
+    queryKey: ["categories"],
+    queryFn: fetchCategories,
   });
 
   // Filtered products state
@@ -88,16 +99,16 @@ const ProductsPage = () => {
 
         {/* Category Filter */}
         <select
-          className="p-2 rounded border w-full md:w-1/2 dark:bg-neutral-700"
+          className="p-2 rounded border dark:bg-gray-700"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >
-          <option value="all">All Categories</option>
-          <option value="men's clothing">Men</option>
-          <option value="women's clothing">Women</option>
-          <option value="jewelery">Jewelry</option>{" "}
-          {/*jewelery api spelling mistake*/}
-          <option value="electronics">Electronics</option>
+          <option value="All">All Categories</option>
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat.charAt(0).toUpperCase() + cat.slice(1)}
+            </option>
+          ))}
         </select>
 
         {/* Price Range Filter */}
