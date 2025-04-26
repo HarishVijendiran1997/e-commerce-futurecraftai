@@ -1,13 +1,11 @@
 import fetchProductById from "@/lib/fetchProductDetails";
 import Image from "next/image";
 
-interface ProductDetailProps {
-  params: {
-    id: string;
-  };
-}
+type Props = {
+  params: { id: string };
+};
 
-export default async function ProductDetail({ params }: ProductDetailProps) {
+export default async function ProductDetail({ params }: Props) {
   const product = await fetchProductById(params.id);
 
   return (
@@ -22,7 +20,7 @@ export default async function ProductDetail({ params }: ProductDetailProps) {
           className="w-full h-64 object-contain md:h-auto md:w-full"
         />
 
-        {/* Product Details Section */}
+        {/* Product Details */}
         <div>
           <h1 className="text-2xl font-bold mb-2">{product.title}</h1>
           <p className="text-gray-600 dark:text-gray-300 mb-2">
