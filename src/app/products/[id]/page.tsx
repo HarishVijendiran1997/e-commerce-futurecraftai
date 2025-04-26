@@ -4,11 +4,11 @@ import { Product } from "@/types/product";
 
 // Update the typing of params to fit Next.js dynamic routes
 type ProductDetailProps = {
-  params: { id: string }; // Typing the params correctly
+  params: { id: string }; // Typing the params correctly for dynamic routes
 };
 
 export default async function ProductDetail({ params }: ProductDetailProps) {
-  const product: Product = await fetchProductById(params.id);
+  const product: Product = await fetchProductById(params.id); // Correctly typed `product`
 
   return (
     <div className="p-6 max-w-4xl mx-auto bg-white dark:bg-neutral-800 rounded shadow">
