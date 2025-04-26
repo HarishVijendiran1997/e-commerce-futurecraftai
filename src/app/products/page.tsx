@@ -26,6 +26,12 @@ const ProductsPage = () => {
   //category filter
   const [category, setCategory] = useState("All");
 
+  // Price range filter
+  const [price, setPrice] = useState([0, 1000]);
+
+  //Rating filter
+  const [rating, setRating] = useState(0);
+
   // Filter products based on search term
   useEffect(() => {
     if (products) {
@@ -43,9 +49,16 @@ const ProductsPage = () => {
         result = result.filter((p) => p.category === category);
       }
 
+      // Sort by price
+      result = result.filter((p) => p.price >= price[0] && p.price <= price[1]);
+
+      // Sort by rating
+      result = result.filter((p) => p.rating.rate >= rating);
+
+      // Set filtered products
       setFilteredProducts(result);
     }
-  }, [products, searchTerm, category]);
+  }, [products, searchTerm, category, price, rating]);
 
   // Handle loading and error states
   if (isLoading) {
@@ -62,7 +75,8 @@ const ProductsPage = () => {
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">Products</h2>
-      <div className="flex flex-col md:flex-row gap-4 bg-white dark:bg-gray-800 p-4 rounded shadow">
+
+      <div className="flex flex-col md:flex-row gap-4 mb-5 bg-white dark:bg-neutral-800 p-4 rounded shadow">
         {/* Search Input */}
         <input
           type="text"
@@ -74,23 +88,58 @@ const ProductsPage = () => {
 
         {/* Category Filter */}
         <select
-          className="p-2 rounded border w-full md:w-1/2 dark:bg-gray-700"
+          className="p-2 rounded border w-full md:w-1/2 dark:bg-neutral-700"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >
           <option value="all">All Categories</option>
           <option value="men's clothing">Men</option>
           <option value="women's clothing">Women</option>
-          <option value="jewelery">Jewelry</option> {/*jewelery api spelling mistake*/}
+          <option value="jewelery">Jewelry</option>{" "}
+          {/*jewelery api spelling mistake*/}
           <option value="electronics">Electronics</option>
+        </select>
+
+        {/* Price Range Filter */}
+        <div className="flex flex-col w-full md:w-1/2">
+          <label className="text-sm mb-1">
+            Price: ${price[0]} - ${price[1]}
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="1000"
+            step="10"
+            value={price[1]}
+            onChange={(e) => setPrice([0, parseInt(e.target.value)])}
+            className="w-full"
+          />
+        </div>
+        {/* Rating Filter */}
+        <select
+          className="p-2 rounded border w-full md:w-1/2 dark:bg-gray-700"
+          value={rating}
+          onChange={(e) => setRating(Number(e.target.value))}
+        >
+          <option value={0}>All Ratings</option>
+          <option value={1}>1★ & up</option>
+          <option value={2}>2★ & up</option>
+          <option value={3}>3★ & up</option>
+          <option value={4}>4★ & up</option>
         </select>
       </div>
 
       {/* Products List */}
       <main className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-        {filteredProducts?.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+        {filteredProducts.length === 0 ? (
+          <p className="text-center col-span-full text-neutral-500 flex justify-center items-center h-64">
+            No products found.
+          </p>
+        ) : (
+          filteredProducts?.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))
+        )}
       </main>
     </div>
   );
