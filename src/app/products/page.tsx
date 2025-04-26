@@ -70,13 +70,13 @@ const ProductsPage = () => {
         setFilteredProducts(result);
       }
     }
-  }, [products, searchTerm, price, rating, filteredProducts]);
+  }, [products, searchTerm, price, rating]);
 
   // Handle loading and error states
   if (isLoading) {
-    return <div className="text-4xl flex justify-center">Loading...</div>;
+    return <div className="text-2xl flex justify-center">Loading...</div>;
   }
-  if (isError) {
+  if (isError  || catError) {
     return (
       <div className="text-4xl flex justify-center items-center text-red-600 min-h-screen">
         Error fetching products
@@ -100,7 +100,7 @@ const ProductsPage = () => {
 
         {/* Category Filter */}
         <select
-          className="p-2 rounded border dark:bg-gray-700"
+          className="p-2 rounded border dark:bg-gray-700 mb-4 md:mb-0"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >
@@ -127,6 +127,7 @@ const ProductsPage = () => {
             className="w-full"
           />
         </div>
+
         {/* Rating Filter */}
         <select
           className="p-2 rounded border w-full md:w-1/2 dark:bg-gray-700"
@@ -134,10 +135,10 @@ const ProductsPage = () => {
           onChange={(e) => setRating(Number(e.target.value))}
         >
           <option value={0}>All Ratings</option>
-          <option value={1}>1★ & up</option>
-          <option value={2}>2★ & up</option>
-          <option value={3}>3★ & up</option>
-          <option value={4}>4★ & up</option>
+          <option value={1}>1⭐ & up</option>
+          <option value={2}>2⭐ & up</option>
+          <option value={3}>3⭐ & up</option>
+          <option value={4}>4⭐ & up</option>
         </select>
       </div>
 
