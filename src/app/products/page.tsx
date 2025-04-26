@@ -10,6 +10,11 @@ import { useEffect, useState } from "react";
 const ProductsPage = () => {
   //category filter
   const [category, setCategory] = useState("All");
+
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 8;
+
   // Fetch products from the API
   const {
     data: products = [],
@@ -72,11 +77,34 @@ const ProductsPage = () => {
     }
   }, [products, searchTerm, price, rating]);
 
+  //Pagination logic
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+  //Pagination total pages
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+  // Handle page change increment
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+  // Handle page change decrement
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   // Handle loading and error states
   if (isLoading) {
     return <div className="text-2xl flex justify-center">Loading...</div>;
   }
-  if (isError  || catError) {
+  if (isError || catError) {
     return (
       <div className="text-4xl flex justify-center items-center text-red-600 min-h-screen">
         Error fetching products
@@ -144,16 +172,39 @@ const ProductsPage = () => {
 
       {/* Products List */}
       <main className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-        {filteredProducts.length === 0 ? (
+        {currentProducts.length === 0 ? (
           <p className="text-center col-span-full text-neutral-500 flex justify-center items-center h-64">
             No products found.
           </p>
         ) : (
-          filteredProducts?.map((product) => (
+          currentProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))
         )}
       </main>
+
+      {/* Pagination */}
+      <div className="pagination flex justify-center items-center space-x-4 mt-4">
+        <button
+          className={`${
+            currentPage === totalPages ? "bg-neutral-500" : ""
+          } border px-4 py-2 rounded`}
+          onClick={handlePrevPage}
+          disabled={currentPage === 1}
+        >
+          {"<"}
+        </button>
+        <span className="text-lg">{currentPage}</span>
+        <button
+          className={`${
+            currentPage === totalPages ? "bg-neutral-500" : ""
+          } border px-4 py-2 rounded`}
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+        >
+          {">"}
+        </button>
+      </div>
     </div>
   );
 };
