@@ -1,17 +1,13 @@
+import { type PageProps } from "next";
 import fetchProductById from "@/lib/fetchProductDetails";
 import Image from "next/image";
 
-type Props = {
-  params: { id: string };
-};
-
-export default async function ProductDetail({ params }: Props) {
+export default async function ProductDetail({ params }: PageProps<{ id: string }>) {
   const product = await fetchProductById(params.id);
 
   return (
     <div className="p-6 max-w-4xl mx-auto bg-white dark:bg-neutral-800 rounded shadow">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Product Image */}
         <Image
           src={product.image}
           alt={product.title}
@@ -19,8 +15,6 @@ export default async function ProductDetail({ params }: Props) {
           height={500}
           className="w-full h-64 object-contain md:h-auto md:w-full"
         />
-
-        {/* Product Details */}
         <div>
           <h1 className="text-2xl font-bold mb-2">{product.title}</h1>
           <p className="text-gray-600 dark:text-gray-300 mb-2">
@@ -35,8 +29,6 @@ export default async function ProductDetail({ params }: Props) {
           <p className="text-gray-700 dark:text-gray-300 mb-4">
             {product.description}
           </p>
-
-          {/* Action Buttons */}
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mt-4">
             <button className="bg-green-500 text-white p-2 rounded hover:bg-green-600">
               Add Product
